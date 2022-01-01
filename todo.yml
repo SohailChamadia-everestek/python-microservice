@@ -14,5 +14,5 @@
 - Testing: PyTest with fixtures
 - Testing: Nox for multiple python environment
 
-- Deployment: Gunicorn - API Server
+- Deployment: Gunicorn - API Server 
 - Deployment: Typer - Worker
