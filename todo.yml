@@ -1,0 +1,18 @@
+- Dockerize
+- Hooks
+- Github Workflows
+
+- API Versioning
+- Scripts: Test coverage
+
+- Schemas: Request and response schemas (DTO)
+- Models: Database models
+
+- Linting: Flake8
+- Linting: mypy
+
+- Testing: PyTest with fixtures
+- Testing: Nox for multiple python environment
+
+- Deployment: Gunicorn - API Server
+- Deployment: Typer - Worker
