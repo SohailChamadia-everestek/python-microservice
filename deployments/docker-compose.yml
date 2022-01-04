@@ -30,37 +30,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_DEFAULT_REGION=us-east-1
-      - SERVICE=datasetapi
-      - DATASET_DB_HOST=postgres
-      - DATASET_DB_PORT=5432
-      - DATASET_DB_NAME=ds
-      - DATASET_DB_USER=postgres
-      - DATASET_DB_PASS=Password1
-      - DATASET_ES_USERNAME=elastic
-      - DATASET_ES_PASSWORD=TARi22ygLnVCfcaQqEr1tbED
-      - DATASET_ES_HOST=5dd27b5f865940e2bd56b5efbb21f7a3.us-east-1.aws.found.io
-      - DATASET_ES_PORT=9243
-      - DATASET_ES_DATASETS_INDEX=datasets-v2-local
-      - DATASET_ES_SCHEMA_INDEX=schema-v2-local
-      - DATASET_ES_DATUMS_INDEX=datums-v2-local
-      - DATASET_SHOULD_WRITE=False
-      - DATASET_COMMAND_QUEUE_URL=http://sqs:9324/queue/dataset-publish-back-local
-      - DATASET_SHAKA_COMMAND_QUEUE_URL=http://sqs:9324/queue/shaka-queue-dev
-      - DATASET_BOOGIE_QUEUE_URL=http://sqs:9324/queue/boogie-dataset-service-dev
-      - DATASET_STANDARDIZED_QUEUE_URL=http://sqs:9324/queue/dataset-standardized-dev-v2
-      - DATASET_HONEYCOMB_DATASET_WRITE_KEY=d6faf0fee772f6ad84990a794bae60a3
-      - DATASET_HONEYCOMB_DATASET_NAME=spraoi-local
-      - DATASET_HTTP_HOST=0.0.0.0
-      - DATASET_HTTP_PORT=9001
-      - DATASET_DEBUG=true
-      - DATASET_ENV=dev
-      - DATASET_LOG_TYPE=txt
-      - DATASET_QUEUE_ENDPOINT=http://sqs:9324
-      - DATASET_MAX_QUEUE_MESSAGES=1
-      - DATASET_POLL_INTERVAL=1
-      - DATASET_KINESIS_STREAM_NAME=event-stream-local
-      - DATASET_STREAM_ENDPOINT=http://kinesis:4567
-    command: python datasets/app.py
+    command: python src/app.py
 
   worker:
     image: service
@@ -77,36 +47,5 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_DEFAULT_REGION=us-east-1
-      - SERVICE=datasetworker
-      - DATASET_V1_DB_NAME=pbzyghsc
-      - DATASET_DB_HOST=postgres
-      - DATASET_DB_PORT=5432
-      - DATASET_DB_NAME=ds
-      - DATASET_DB_USER=postgres
-      - DATASET_DB_PASS=Password1
-      - DATASET_ES_USERNAME=elastic
-      - DATASET_ES_PASSWORD=TARi22ygLnVCfcaQqEr1tbED
-      - DATASET_ES_HOST=5dd27b5f865940e2bd56b5efbb21f7a3.us-east-1.aws.found.io
-      - DATASET_ES_PORT=9243
-      - DATASET_ES_DATASETS_INDEX=datasets-v2-local
-      - DATASET_ES_SCHEMA_INDEX=schema-v2-local
-      - DATASET_ES_DATUMS_INDEX=datums-v2-local
-      - DATASET_SHOULD_WRITE=False
-      - DATASET_COMMAND_QUEUE_URL=http://sqs:9324/queue/dataset-publish-back-local
-      - DATASET_SHAKA_COMMAND_QUEUE_URL=http://sqs:9324/queue/shaka-queue-dev
-      - DATASET_BOOGIE_QUEUE_URL=http://sqs:9324/queue/boogie-dataset-service-dev
-      - DATASET_STANDARDIZED_QUEUE_URL=http://sqs:9324/queue/dataset-standardized-dev-v2
-      - DATASET_HONEYCOMB_DATASET_WRITE_KEY=d6faf0fee772f6ad84990a794bae60a3
-      - DATASET_HONEYCOMB_DATASET_NAME=spraoi-local
-      - DATASET_HTTP_HOST=0.0.0.0
-      - DATASET_HTTP_PORT=9002
-      - DATASET_DEBUG=false
-      - DATASET_ENV=dev
-      - DATASET_LOG_TYPE=txt
-      - DATASET_QUEUE_ENDPOINT=http://sqs:9324
-      - DATASET_SQS_WAIT_TIME=1
-      - DATASET_MAX_QUEUE_MESSAGES=1
-      - DATASET_POLL_INTERVAL=5
-      - DATASET_KINESIS_STREAM_NAME=event-stream-local
-      - DATASET_STREAM_ENDPOINT=http://kinesis:4567
-    command: dataset --debug start
+
+    command: service --debug start
