@@ -1,0 +1,1 @@
+# File containing all the common fixtures including the fixture for the database
