@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Password1
+      - POSTGRES_DB=ds
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5440:5432"
+
+  api:
+    image: service
+    build:
+      context: ./../.
+      target: debug-image
+      dockerfile: ./deployments/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - .:/code
+    ports:
+      - "9001:9001"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=us-east-1
+    command: python src/app.py
+
+  worker:
+    image: service
+    build:
+      context: ./../.
+      dockerfile: ./deployments/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - .:/code
+    ports:
+      - "9002:9002"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=us-east-1
+
+    command: service --debug start
